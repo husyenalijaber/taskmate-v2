@@ -1,0 +1,86 @@
+
+
+1. TaskForm Component:
+
+```jsx
+import React, { useState } from 'react';
+
+const TaskForm = ({ onAddTask }) => {
+  const [task, setTask] = useState('');
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    onAddTask(task);
+    setTask('');
+  };
+
+  return (
+    <form className="p-4" onSubmit={handleSubmit}>
+      <div className="mb-4">
+        <label className="block text-gray-700 font-bold mb-2" for="task">
+          Task
+        </label>
+        <input
+          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          id="task"
+          type="text"
+          placeholder="Enter task"
+          value={task}
+          onChange={(e) => setTask(e.target.value)}
+        />
+      </div>
+      <button
+        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+        type="submit"
+      >
+        Add Task
+      </button>
+    </form>
+  );
+};
+
+export default TaskForm;
+```
+
+2. TaskList Component:
+
+```jsx
+import React from 'react';
+
+const TaskList = ({ tasks }) => {
+  return (
+    <div className="p-4">
+      <h2 className="text-lg font-semibold mb-4">Tasks</h2>
+      <ul className="divide-y divide-gray-200">
+        {tasks.map((task, index) => (
+          <li
+            key={index}
+            className="flex items-center justify-between py-4 hover:bg-gray-100"
+          >
+            <span className="text-gray-700">{task}</span>
+            <button
+              className="p-1 ml-auto text-gray-400 hover:text-gray-500"
+              aria-label="Delete task"
+            >
+              <svg
+                className="h-4 w-4"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                  clipRule="evenodd"
+                />
+              </svg>
+            </button>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+};
+
+export default TaskList;
+```
